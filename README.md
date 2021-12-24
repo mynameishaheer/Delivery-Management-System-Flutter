@@ -1,16 +1,11 @@
-# db_project
+# Delivery Management System
 
-A new Flutter project.
+My first flutter application.
 
-## Getting Started
+## Purpose
 
-This project is a starting point for a Flutter application.
+This application was created for a university project 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The application was created for a delivery service running in Karachi, Pakistan. 
+It allows the customers of this company to book ad track their delivery status.
+It allows the managers of the company to confirm new bookings and assign them to riders.
