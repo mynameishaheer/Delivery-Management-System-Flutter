@@ -2,7 +2,7 @@
 
 My first flutter application.
 
-## Purpose
+# Purpose
 
 This application was created for a university project 
 
