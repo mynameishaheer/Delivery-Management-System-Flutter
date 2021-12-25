@@ -85,7 +85,7 @@ class Authentication extends StatelessWidget {
                 email, (e) => _showErrorDialog(context, 'Invalid Email', e)));
 
       case ApplicationLoginState.password:
-        return PasswordForm(
+        return LoginForm(
           email: email!,
           login: (email, password) {
             signInWithEmailAndPassword(context, email, password,
