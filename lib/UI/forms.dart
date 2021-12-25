@@ -12,7 +12,7 @@ class EmailForm extends StatefulWidget {
 
 class _EmailFormState extends State<EmailForm> {
   final _formKey = GlobalKey<FormState>(debugLabel: '_EmailFormState');
-  final _controller = TextEditingController();
+  final _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _EmailFormState extends State<EmailForm> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 10),
                     child: TextFormField(
-                      controller: _controller,
+                      controller: _emailController,
                       decoration:
                           const InputDecoration(hintText: 'Enter your email'),
                       validator: (value) {
@@ -56,7 +56,7 @@ class _EmailFormState extends State<EmailForm> {
                                 fixedSize: Size(200, 40)),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                widget.callback(_controller.text);
+                                widget.callback(_emailController.text);
                               }
                             },
                             child: const Text('NEXT'),
@@ -76,18 +76,19 @@ class _EmailFormState extends State<EmailForm> {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
-class PasswordForm extends StatefulWidget {
-  const PasswordForm({required this.login, required this.email});
+class LoginForm extends StatefulWidget {
+  const LoginForm({required this.login, required this.email});
 
   final String email;
   final void Function(String email, String password) login;
 
   @override
-  _PasswordFormState createState() => _PasswordFormState();
+  _LoginFormState createState() => _LoginFormState();
 }
 
-class _PasswordFormState extends State<PasswordForm> {
+class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>(debugLabel: '_PasswordFormState');
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -96,6 +97,24 @@ class _PasswordFormState extends State<PasswordForm> {
   void initState() {
     super.initState();
     _emailController.text = widget.email;
+  }
+
+  // Fucntion used to create a form feild
+  Padding createFieldForm(
+      String hint, String empty, TextEditingController cont, bool hide) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+      child: TextFormField(
+          obscureText: hide,
+          controller: cont,
+          decoration: InputDecoration(hintText: hint),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return empty;
+            }
+            return null;
+          }),
+    );
   }
 
   @override
@@ -112,33 +131,16 @@ class _PasswordFormState extends State<PasswordForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    child: TextFormField(
-                        controller: _emailController,
-                        decoration:
-                            const InputDecoration(hintText: 'Email Address'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter your email address to continue';
-                          }
-                          return null;
-                        }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: TextFormField(
-                        controller: _passwordController,
-                        decoration: const InputDecoration(hintText: 'Password'),
-                        obscureText: true,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter your password';
-                          }
-                          return null;
-                        }),
-                  ),
+                  //Creates the individual fields in the login form
+                  createFieldForm(
+                      "Email Address",
+                      "Enter email address to continue",
+                      _emailController,
+                      false),
+                  createFieldForm("Password", "Enter a password to continue",
+                      _passwordController, true),
+
+                  // Creates the signin button in the login form and sends the individual field data verified by FirebaseAuth
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Row(
@@ -175,6 +177,7 @@ class _PasswordFormState extends State<PasswordForm> {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 class RegisterForm extends StatefulWidget {
@@ -214,6 +217,25 @@ class _RegisterFormState extends State<RegisterForm> {
     _emailController.text = widget.email;
   }
 
+  // Fucntion used to create a form feild
+  Padding createFormField(
+      String hint, String empty, TextEditingController cont, bool hide) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+      child: TextFormField(
+        obscureText: hide,
+        controller: cont,
+        decoration: InputDecoration(hintText: hint),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return empty;
+          }
+          return null;
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -229,35 +251,23 @@ class _RegisterFormState extends State<RegisterForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   //Creates the individual fields in the register form
-                  registerFormFields('Email Address',
-                      "Enter your email address", _emailController),
-                  registerFormFields(
-                      'Full Name', "Enter your full name", _fullNameController),
-                  registerFormFields('Phone Number', "Enter your phone number",
-                      _phoneNoController),
-                  registerFormFields(
-                      'CNIC Number', "Enter your CNIC number", _cnicController),
-                  registerFormFields('Permanent Address',
-                      "Enter your permanent address", _addressController),
-                  registerFormFields('Business Name',
-                      "Enter your business name", _businessNameController),
-
-                  // Creates the password field in the register form
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    child: TextFormField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(hintText: 'Password'),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your phone number';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
+                  createFormField('Email Address', "Enter your email address",
+                      _emailController, false),
+                  createFormField('Full Name', "Enter your full name",
+                      _fullNameController, false),
+                  createFormField('Phone Number', "Enter your phone number",
+                      _phoneNoController, false),
+                  createFormField('CNIC Number', "Enter your CNIC number",
+                      _cnicController, false),
+                  createFormField(
+                      'Permanent Address',
+                      "Enter your permanent address",
+                      _addressController,
+                      false),
+                  createFormField('Business Name', "Enter your business name",
+                      _businessNameController, false),
+                  createFormField('Password', "Enter a valid password",
+                      _passwordController, true),
 
                   // Creates the save button in the register form and sends the individual field texts to be added to firebase
                   Padding(
@@ -301,24 +311,7 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
     );
   }
-
-  // Fucntion used to create a form feild
-  Padding registerFormFields(
-      String hint, String empty, TextEditingController cont) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-      child: TextFormField(
-        controller: _emailController,
-        decoration: InputDecoration(hintText: hint),
-        validator: (value) {
-          if (value!.isEmpty) {
-            return empty;
-          }
-          return null;
-        },
-      ),
-    );
-  }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
