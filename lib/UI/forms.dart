@@ -228,95 +228,21 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    child: TextFormField(
-                      controller: _emailController,
-                      decoration:
-                          const InputDecoration(hintText: 'Email Address'),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter your email address to continue';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    child: TextFormField(
-                      controller: _fullNameController,
-                      decoration: const InputDecoration(hintText: 'Full Name'),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter your full name';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    child: TextFormField(
-                      controller: _phoneNoController,
-                      decoration:
-                          const InputDecoration(hintText: 'Phone Number'),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your phone number (03xx xxxxxxx)';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    child: TextFormField(
-                      controller: _cnicController,
-                      decoration:
-                          const InputDecoration(hintText: 'CNIC Number'),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your CNIC number (xxxxx-xxxxxxx-x)';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    child: TextFormField(
-                      controller: _addressController,
-                      decoration:
-                          const InputDecoration(hintText: 'Permanent Address'),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your permanent address';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    child: TextFormField(
-                      controller: _businessNameController,
-                      decoration:
-                          const InputDecoration(hintText: 'Business Name'),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter the name of your business';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
+                  //Creates the individual fields in the register form
+                  registerFormFields('Email Address',
+                      "Enter your email address", _emailController),
+                  registerFormFields(
+                      'Full Name', "Enter your full name", _fullNameController),
+                  registerFormFields('Phone Number', "Enter your phone number",
+                      _phoneNoController),
+                  registerFormFields(
+                      'CNIC Number', "Enter your CNIC number", _cnicController),
+                  registerFormFields('Permanent Address',
+                      "Enter your permanent address", _addressController),
+                  registerFormFields('Business Name',
+                      "Enter your business name", _businessNameController),
+
+                  // Creates the password field in the register form
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 10),
@@ -332,6 +258,8 @@ class _RegisterFormState extends State<RegisterForm> {
                       },
                     ),
                   ),
+
+                  // Creates the save button in the register form and sends the individual field texts to be added to firebase
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 90, vertical: 16),
@@ -357,6 +285,8 @@ class _RegisterFormState extends State<RegisterForm> {
                           child: const Text('SAVE'),
                         ),
                         const SizedBox(width: 30),
+
+                        // Creates the cancle button in the register form
                         TextButton(
                             onPressed: widget.cancel,
                             child: const Text('CANCEL')),
@@ -366,12 +296,29 @@ class _RegisterFormState extends State<RegisterForm> {
                 ],
               ),
             ),
-          )
+          ),
         ],
+      ),
+    );
+  }
+
+  // Fucntion used to create a form feild
+  Padding registerFormFields(
+      String hint, String empty, TextEditingController cont) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+      child: TextFormField(
+        controller: _emailController,
+        decoration: InputDecoration(hintText: hint),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return empty;
+          }
+          return null;
+        },
       ),
     );
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-
