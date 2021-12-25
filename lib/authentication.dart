@@ -189,7 +189,7 @@ class Authentication extends StatelessWidget {
             ),
           ),
           actions: <Widget>[
-            StyledButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
