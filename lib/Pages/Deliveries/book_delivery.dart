@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BookDelivery extends StatefulWidget {
-  //final String documentId;
   BookDelivery();
 
   @override
@@ -44,10 +43,6 @@ class _BookDeliveryState extends State<BookDelivery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   title: Text('Book New Delivery'),
-      // ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
