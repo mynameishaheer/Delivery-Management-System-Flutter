@@ -1,4 +1,4 @@
-import 'package:db_project/UI/widgets.dart';
+import 'package:db_project/UserInterface/widgets.dart';
 import 'package:flutter/material.dart';
 import 'widgets.dart';
 
@@ -28,21 +28,13 @@ class _EmailFormState extends State<EmailForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    child: TextFormField(
-                      controller: _emailController,
-                      decoration:
-                          const InputDecoration(hintText: 'Enter your email'),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter your email address to continue';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
+                  // Fucntion used to create a form feild
+                  createFormField(
+                      "Email Address",
+                      "Please enter your email address to continue",
+                      _emailController),
+
+                  // Creates the next button in the login form and sends the field data to be verified by FirebaseAuth
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -73,6 +65,23 @@ class _EmailFormState extends State<EmailForm> {
       ),
     );
   }
+
+  Padding createFormField(
+      String hint, String empty, TextEditingController cont) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+      child: TextFormField(
+        controller: cont,
+        decoration: InputDecoration(hintText: hint),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return empty;
+          }
+          return null;
+        },
+      ),
+    );
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -100,7 +109,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   // Fucntion used to create a form feild
-  Padding createFieldForm(
+  Padding createFormField(
       String hint, String empty, TextEditingController cont, bool hide) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
@@ -132,15 +141,15 @@ class _LoginFormState extends State<LoginForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   //Creates the individual fields in the login form
-                  createFieldForm(
+                  createFormField(
                       "Email Address",
                       "Enter email address to continue",
                       _emailController,
                       false),
-                  createFieldForm("Password", "Enter a password to continue",
+                  createFormField("Password", "Enter a password to continue",
                       _passwordController, true),
 
-                  // Creates the signin button in the login form and sends the individual field data verified by FirebaseAuth
+                  // Creates the signin button in the login form and sends the individual field data to be verified by FirebaseAuth
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Row(

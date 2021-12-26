@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:db_project/Pages/Deliveries/edit_delivery.dart';
-import 'package:db_project/UI/widgets.dart';
+import 'package:db_project/UserInterface/widgets.dart';
 import 'package:flutter/material.dart';
 
 class AllDeliveries extends StatelessWidget {

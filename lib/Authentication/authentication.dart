@@ -1,9 +1,9 @@
 import 'package:db_project/Pages/opening_page.dart';
-import 'package:db_project/UI/widgets.dart';
+import 'package:db_project/UserInterface/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'UI/forms.dart';
+import 'package:db_project/UserInterface/forms.dart';
 
 enum ApplicationLoginState {
   loggedout,
